@@ -90,7 +90,7 @@ button:active{transform:scale(.97)}
 .bottom-btn{position:fixed;left:20px;right:20px;bottom:calc(var(--safe-bottom)+18px);width:auto}
 
 /* APP */
-.app-screen{position:fixed;inset:0;display:none;overflow:auto;padding:calc(var(--safe-top)+12px) 16px calc(180px + var(--safe-bottom));background:var(--bg)}
+.app-screen{position:fixed;inset:0;display:none;overflow:auto;padding:calc(var(--safe-top) + 4px) 16px calc(180px + var(--safe-bottom));background:var(--bg)}
 .app-screen.active{display:block}
 .app-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:0;padding-top:0}
 .app-header h2{font-family:'Tajawal',sans-serif;font-size:22px;font-weight:900}
@@ -396,7 +396,7 @@ button:active{transform:scale(.97)}
 
 @media(min-width:760px){
   .app-screen{max-width:520px;left:50%;transform:translateX(-50%);border-inline:1px solid rgba(255,255,255,.05)}
-  .bottom-nav{max-width:520px;left:50%;transform:translateX(-50%);grid-template-columns:1fr 1fr 1fr 1fr 60px 1fr 1fr 1fr 1fr}
+  .bottom-nav{max-width:520px;left:50%;transform:translateX(-50%);grid-template-columns:1fr 1fr 1fr 1fr 60px 1fr 1fr 1fr 1fr 1fr}
   .modal-card{max-width:500px;left:50%;right:auto;transform:translateX(-50%);width:calc(100% - 24px)}
 }
 @media(max-width:390px){
@@ -405,7 +405,7 @@ button:active{transform:scale(.97)}
   .two-cols,.row-actions{grid-template-columns:1fr}
   .split-title{display:block}
   .inline-actions{margin-top:10px}
-  .bottom-nav{grid-template-columns:1fr 1fr 1fr 1fr 54px 1fr 1fr 1fr 1fr}
+  .bottom-nav{grid-template-columns:1fr 1fr 1fr 1fr 54px 1fr 1fr 1fr 1fr 1fr}
   .wealth-cards{grid-template-columns:1fr}
   .invest-summary-cards{grid-template-columns:1fr}
 }
@@ -720,13 +720,18 @@ button:active{transform:scale(.97)}
   </section>
 
 
-  <nav class="bottom-nav" style="grid-template-columns:1fr 1fr 1fr 1fr 60px 1fr 1fr 1fr 1fr">
+  <nav class="bottom-nav" style="grid-template-columns:1fr 1fr 1fr 1fr 60px 1fr 1fr 1fr 1fr 1fr">
     <button class="nav-btn active" type="button" data-page="home" onclick="showPage('home')"><span class="nav-icon">🏠</span>الرئيسية</button>
     <button class="nav-btn" type="button" data-page="monthly" onclick="showPage('monthly')"><span class="nav-icon">📊</span>الشهر</button>
     <button class="nav-btn" type="button" data-page="debts" onclick="showPage('debts')"><span class="nav-icon">🤝</span>الديون</button>
     <button class="nav-btn" type="button" data-page="investment" onclick="showPage('investment')"><span class="nav-icon">📈</span>استثمار</button>
     <button class="fab" type="button" onclick="openModal('expense')">+</button>
     <button class="nav-btn" type="button" data-page="custodian-page" onclick="showPage('custodian-page')"><span class="nav-icon">💼</span>العهدة</button>
+    <button class="nav-btn" type="button" onclick="showPage('custodian-page');setTimeout(()=>openModal('income'),80)" style="color:var(--green)">
+      <span class="nav-icon" style="position:relative;display:inline-block;line-height:1">
+        <img src="Icon.png" style="width:22px;height:22px;border-radius:50%;object-fit:cover;display:block;border:1.5px solid var(--green)"/>
+        <span style="position:absolute;top:-5px;right:-6px;background:var(--green);color:#000;font-size:7px;font-weight:900;border-radius:99px;padding:1px 3px;line-height:1.4">+</span>
+      </span>دخل عهدة</button>
     <button class="nav-btn" type="button" data-page="wealth" onclick="showPage('wealth')"><span class="nav-icon">💎</span>ثروتي</button>
     <button class="nav-btn" type="button" data-page="transactions" onclick="showPage('transactions')"><span class="nav-icon">📋</span>السجل</button>
     <button class="nav-btn" type="button" data-page="settings" onclick="showPage('settings')"><span class="nav-icon">⚙️</span>إعدادات</button>
