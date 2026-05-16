@@ -273,8 +273,8 @@ button:active{transform:scale(.97)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* BOTTOM NAV */
-.bottom-nav{position:fixed;left:0;right:0;bottom:0;height:calc(64px + var(--safe-bottom));padding:4px 6px var(--safe-bottom);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 60px 1fr 1fr 1fr;align-items:center;background:rgba(8,13,24,.94);border-top:1px solid var(--line);backdrop-filter:blur(24px);z-index:20}
-.nav-btn{height:54px;background:transparent;color:var(--faint);font-size:10px;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0 2px}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;height:calc(64px + var(--safe-bottom));padding:4px 2px var(--safe-bottom);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 60px 1fr 1fr 1fr 1fr;align-items:center;background:rgba(8,13,24,.94);border-top:1px solid var(--line);backdrop-filter:blur(24px);z-index:20}
+.nav-btn{height:54px;background:transparent;color:var(--faint);font-size:9px;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0 1px}
 .nav-btn.active{color:var(--gold-1)}
 .nav-icon{font-size:18px;line-height:1}
 .fab{width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,var(--gold-3),var(--gold-2),var(--gold-1));color:#1a0e00;font-size:28px;font-weight:900;box-shadow:0 15px 38px rgba(201,160,48,.32);margin-top:-18px}
@@ -308,11 +308,10 @@ button:active{transform:scale(.97)}
 .toast.warning{border-color:rgba(255,176,32,.3);color:var(--amber)}
 
 /* LOADING OVERLAY */
-.loading-overlay{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:300;overflow:hidden}
+.loading-overlay{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;z-index:300;overflow:hidden}
 .loading-overlay.hidden{display:none}
-.loading-spinner{width:48px;height:48px;border:3px solid var(--bg-4);border-top-color:var(--gold-2);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
 .loading-overlay p{color:var(--muted);font-size:14px;position:relative;z-index:2}
+@keyframes splashTextIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
 
 /* Animated aurora background - colors from left & right */
 .loading-overlay::before{
@@ -397,7 +396,7 @@ button:active{transform:scale(.97)}
 
 @media(min-width:760px){
   .app-screen{max-width:520px;left:50%;transform:translateX(-50%);border-inline:1px solid rgba(255,255,255,.05)}
-  .bottom-nav{max-width:520px;left:50%;transform:translateX(-50%)}
+  .bottom-nav{max-width:520px;left:50%;transform:translateX(-50%);grid-template-columns:1fr 1fr 1fr 1fr 60px 1fr 1fr 1fr 1fr}
   .modal-card{max-width:500px;left:50%;right:auto;transform:translateX(-50%);width:calc(100% - 24px)}
 }
 @media(max-width:390px){
@@ -406,7 +405,7 @@ button:active{transform:scale(.97)}
   .two-cols,.row-actions{grid-template-columns:1fr}
   .split-title{display:block}
   .inline-actions{margin-top:10px}
-  .bottom-nav{grid-template-columns:1fr 1fr 1fr 1fr 54px 1fr 1fr 1fr}
+  .bottom-nav{grid-template-columns:1fr 1fr 1fr 1fr 54px 1fr 1fr 1fr 1fr}
   .wealth-cards{grid-template-columns:1fr}
   .invest-summary-cards{grid-template-columns:1fr}
 }
@@ -417,10 +416,9 @@ button:active{transform:scale(.97)}
 <!-- LOADING OVERLAY -->
 <div id="loading-overlay" class="loading-overlay">
   <canvas id="splash-canvas"></canvas>
-  <div class="loading-content">
-    <h2 id="splash-logo-tap" style="font-family:'Noto Naskh Arabic','Tajawal',sans-serif;font-size:62px;font-weight:700;letter-spacing:6px;background:linear-gradient(135deg,var(--gold-0) 0%,var(--gold-1) 35%,var(--gold-2) 65%,var(--gold-0) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 28px rgba(201,160,48,.6));margin-bottom:20px;cursor:pointer;user-select:none">رصد</h2>
-    <div class="loading-spinner"></div>
-    <p>جاري التحميل...</p>
+  <div class="loading-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+    <h2 id="splash-logo-tap" style="font-family:'Noto Naskh Arabic','Tajawal',sans-serif;font-size:72px;font-weight:700;letter-spacing:8px;background:linear-gradient(135deg,var(--gold-0) 0%,var(--gold-1) 35%,var(--gold-2) 65%,var(--gold-0) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 32px rgba(201,160,48,.7));margin-bottom:8px;cursor:pointer;user-select:none;animation:splashTextIn 0.9s cubic-bezier(.22,1,.36,1) both">رصد</h2>
+    <p style="color:var(--faint);font-size:12px;letter-spacing:2px;font-weight:800;animation:splashTextIn 1.1s cubic-bezier(.22,1,.36,1) both">إدارة مالية ذكية</p>
   </div>
 </div>
 
@@ -704,13 +702,31 @@ button:active{transform:scale(.97)}
     </section>
   </section>
 
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
+  <!-- CUSTODIAN PAGE -->
+  <section id="page-custodian-page" class="page">
+    <div class="page-title split-title">
+      <div>
+        <h1>العهدة</h1>
+        <p>تابع رصيد العهدة ومصروفاتها وما تبقى منها.</p>
+      </div>
+      <button class="small-btn" type="button" onclick="openModal('expense');setTimeout(()=>toggleCustodian(true),80)">+ صرف من عهدة</button>
+    </div>
+    <!-- ملخص العهدة -->
+    <div id="custodian-summary-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px"></div>
+    <section class="panel">
+      <div class="panel-head"><h3>سجل مصروفات العهدة</h3></div>
+      <div id="custodian-tx-list" class="list large-list"></div>
+    </section>
+  </section>
+
+
+  <nav class="bottom-nav" style="grid-template-columns:1fr 1fr 1fr 1fr 60px 1fr 1fr 1fr 1fr">
     <button class="nav-btn active" type="button" data-page="home" onclick="showPage('home')"><span class="nav-icon">🏠</span>الرئيسية</button>
     <button class="nav-btn" type="button" data-page="monthly" onclick="showPage('monthly')"><span class="nav-icon">📊</span>الشهر</button>
     <button class="nav-btn" type="button" data-page="debts" onclick="showPage('debts')"><span class="nav-icon">🤝</span>الديون</button>
     <button class="nav-btn" type="button" data-page="investment" onclick="showPage('investment')"><span class="nav-icon">📈</span>استثمار</button>
     <button class="fab" type="button" onclick="openModal('expense')">+</button>
+    <button class="nav-btn" type="button" data-page="custodian-page" onclick="showPage('custodian-page')"><span class="nav-icon">💼</span>العهدة</button>
     <button class="nav-btn" type="button" data-page="wealth" onclick="showPage('wealth')"><span class="nav-icon">💎</span>ثروتي</button>
     <button class="nav-btn" type="button" data-page="transactions" onclick="showPage('transactions')"><span class="nav-icon">📋</span>السجل</button>
     <button class="nav-btn" type="button" data-page="settings" onclick="showPage('settings')"><span class="nav-icon">⚙️</span>إعدادات</button>
@@ -1209,6 +1225,52 @@ function renderAll() {
   renderInvestment();
   renderWealth();
   renderSettings();
+  renderCustodianPage();
+}
+
+function renderCustodianPage() {
+  const txs = (userData.transactions||[]).filter(t=>t.custodian);
+  const cur = userData.defaultCurrency;
+  // Summary
+  let totalBudget = 0, totalSpent = 0;
+  txs.forEach(t=>{
+    if(t.custodian.total) totalBudget += t.custodian.total;
+    if(t.custodian.spent) totalSpent += t.custodian.spent;
+  });
+  const remaining = totalBudget - totalSpent;
+  const cards = $('custodian-summary-cards');
+  if (cards) {
+    cards.innerHTML = `
+      <div class="wealth-card" style="background:rgba(61,142,255,.08);border-color:rgba(61,142,255,.2)">
+        <div class="wc-label">إجمالي العهدة</div>
+        <div class="wc-val" style="color:var(--blue);font-size:20px">${formatAmount(totalBudget,cur)}</div>
+      </div>
+      <div class="wealth-card" style="background:${remaining>=0?'rgba(0,200,150,.08)':'rgba(255,77,94,.08)'};border-color:${remaining>=0?'rgba(0,200,150,.2)':'rgba(255,77,94,.2)'}">
+        <div class="wc-label">المتبقي</div>
+        <div class="wc-val" style="color:${remaining>=0?'var(--green)':'var(--red)'};font-size:20px">${formatAmount(remaining,cur)}</div>
+      </div>
+      <div class="wealth-card neg" style="grid-column:1/-1">
+        <div class="wc-label">إجمالي المصروف من العهدة</div>
+        <div class="wc-val" style="font-size:20px">${formatAmount(totalSpent,cur)}</div>
+      </div>`;
+  }
+  // List
+  const list = $('custodian-tx-list');
+  if (!list) return;
+  if (txs.length===0) { list.innerHTML='<div class="empty">لا توجد عمليات عهدة مسجلة. أضف مصروف واختر "إضافة بيانات العهدة".</div>'; return; }
+  list.innerHTML = txs.slice().reverse().map(tx=>{
+    const c = tx.custodian;
+    const rem = (c.total||0)-(c.spent||0);
+    return `<div class="tx" onclick="editTransaction('${tx.id}')">
+      <div class="tx-icon" style="background:rgba(61,142,255,.12)">💼</div>
+      <div class="tx-info">
+        <strong>${escapeHTML(tx.title)}</strong>
+        <span style="color:var(--blue)">${escapeHTML(c.label||'عهدة')} • صُرف: ${formatAmount(c.spent||0,cur)}</span>
+        <span style="font-size:10px;color:${rem>=0?'var(--green)':'var(--red)'}">متبقي: ${formatAmount(rem,cur)}</span>
+      </div>
+      <div class="tx-amount expense">- ${formatAmount(tx.amount,cur)}</div>
+    </div>`;
+  }).join('');
 }
 
 function renderMonthTabs() {
@@ -1234,23 +1296,43 @@ function renderHome() {
   const recent = monthTransactions(selectedMonth).slice(-5).reverse();
   const list = $('recent-list');
   if (recent.length===0) { list.innerHTML='<div class="empty">لا توجد عمليات لهذا الشهر.</div>'; }
-  else { list.innerHTML = recent.map(tx => renderTxItem(tx)).join(''); }
+  else { list.innerHTML = recent.map(tx => renderTxItem(tx, true)).join(''); }
 
   renderSmartInsight(t, budget);
 }
 
-function renderTxItem(tx) {
+function renderTxItem(tx, showActions=false) {
   const cur = tx.currency || userData.defaultCurrency;
   const receiptBadge = tx.receiptPhoto ? `<span style="font-size:10px;background:rgba(201,160,48,.12);border:1px solid var(--line);border-radius:6px;padding:1px 5px;color:var(--gold-2)">📷 فاتورة</span> ` : '';
   const custodianBadge = tx.custodian ? `<span style="font-size:10px;background:rgba(61,142,255,.1);border:1px solid rgba(61,142,255,.25);border-radius:6px;padding:1px 5px;color:var(--blue)">💼 عهدة</span> ` : '';
-  return `<div class="tx" onclick="editTransaction('${tx.id}')">
+  const actionsHTML = showActions ? `
+    <div class="tx-quick-actions" id="tqa-${tx.id}" style="display:none;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06)">
+      <button class="mini-action" onclick="event.stopPropagation();editTransaction('${tx.id}')">✏️ تعديل</button>
+      <button class="mini-action delete" onclick="event.stopPropagation();deleteTransaction('${tx.id}')">🗑 حذف</button>
+    </div>` : '';
+  return `<div class="tx" id="txitem-${tx.id}" onclick="toggleTxActions('${tx.id}')">
     <div class="tx-icon">${tx.type==='income'?'💰':tx.type==='investment'?'📈':'💸'}</div>
-    <div class="tx-info">
+    <div class="tx-info" style="flex:1">
       <strong>${escapeHTML(tx.title)}</strong>
       <span>${receiptBadge}${custodianBadge}${tx.category} • ${tx.date}</span>
+      ${actionsHTML}
     </div>
     <div class="tx-amount ${tx.type}">${tx.type==='income'?'+':'-'} ${formatAmount(tx.amount, cur)}</div>
   </div>`;
+}
+
+let openTxAction = null;
+function toggleTxActions(id) {
+  // close previously open
+  if (openTxAction && openTxAction !== id) {
+    const prev = document.getElementById('tqa-'+openTxAction);
+    if (prev) prev.style.display = 'none';
+  }
+  const el = document.getElementById('tqa-'+id);
+  if (!el) { editTransaction(id); return; } // fallback if no actions
+  const isOpen = el.style.display === 'flex';
+  el.style.display = isOpen ? 'none' : 'flex';
+  openTxAction = isOpen ? null : id;
 }
 
 function renderSmartInsight(t, budget) {
@@ -1314,7 +1396,7 @@ function renderTransactions() {
 
   const list = $('transactions-list');
   if (txs.length===0) { list.innerHTML='<div class="empty">لا توجد عمليات تطابق الفلتر.</div>'; }
-  else { list.innerHTML = txs.map(tx => renderTxItem(tx)).join(''); }
+  else { list.innerHTML = txs.map(tx => renderTxItem(tx, true)).join(''); }
 }
 
 function setFilter(f) {
@@ -1440,10 +1522,28 @@ function renderSettings() {
 function handlePhotoUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
+  // compress if large
   const reader = new FileReader();
   reader.onload = e => {
-    userData.photo = e.target.result;
-    saveUserToCloud(); renderAll(); showToast('تم حفظ الصورة الشخصية ✓');
+    const img = new Image();
+    img.onload = () => {
+      const MAX = 300;
+      const canvas = document.createElement('canvas');
+      const ratio = Math.min(MAX/img.width, MAX/img.height, 1);
+      canvas.width = Math.round(img.width*ratio);
+      canvas.height = Math.round(img.height*ratio);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      const compressed = canvas.toDataURL('image/jpeg', 0.82);
+      userData.photo = compressed;
+      // update all avatar elements immediately
+      const avatarEl = $('avatar');
+      if (avatarEl) avatarEl.innerHTML = `<img src="${compressed}" alt="صورة"/>`;
+      const prev = $('settings-photo-preview');
+      if (prev) prev.innerHTML = `<img src="${compressed}" alt="صورة"/>`;
+      saveUserToCloud();
+      showToast('تم حفظ الصورة الشخصية ✓');
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
@@ -1785,196 +1885,254 @@ function initSplashParticles() {
   let raf;
   let t = 0;
 
-  // Phase tracking: 0=scanning, 1=arriving, 2=settled
-  // Lens travels from edge to center over ~180 frames, then settles
-  const TRAVEL_FRAMES = 200;
-  const ARRIVE_FRAMES = 240;
+  // Phases:
+  // 0–140: lens travels from top-right to center (fast entry)
+  // 140–220: lens rotates/scans at center
+  // 220–300: lens shatters into shards
+  // 300–400: shards drift and fade, text glows in
+  const ARRIVE = 140;
+  const SCAN_END = 220;
+  const SHATTER_END = 310;
+  const DONE = 400;
 
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
   resize();
   window.addEventListener('resize', resize);
 
-  // ---- جزيئات ذهبية ----
-  const COLORS = ['rgba(245,215,112,','rgba(201,160,48,','rgba(255,248,231,','rgba(255,220,80,'];
+  // Silver color palette
+  const SIL = ['rgba(220,228,240,','rgba(180,195,215,','rgba(255,255,255,','rgba(140,160,185,','rgba(200,215,235,'];
+
+  // ---- floating silver particles ----
   let particles = [];
-  function spawnParticle() {
-    return {
-      x: Math.random() * canvas.width,
-      y: canvas.height + 10,
-      r: 0.8 + Math.random() * 2.5,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      alpha: 0.1 + Math.random() * 0.55,
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: -0.5 - Math.random() * 1.1,
-      life: 0, maxLife: 120 + Math.random() * 160,
-      twinkle: Math.random() * Math.PI * 2,
-    };
+  function spawnP() {
+    return { x: Math.random()*canvas.width, y: canvas.height+10, r: 0.6+Math.random()*1.8,
+      color: SIL[Math.floor(Math.random()*SIL.length)], alpha: 0.08+Math.random()*0.35,
+      vx: (Math.random()-.5)*0.5, vy: -0.4-Math.random()*0.9,
+      life:0, maxLife:110+Math.random()*150, twinkle:Math.random()*Math.PI*2 };
   }
-  for (let i = 0; i < 55; i++) { const p = spawnParticle(); p.y = Math.random() * canvas.height; p.life = Math.random() * p.maxLife; particles.push(p); }
+  for (let i=0;i<50;i++){const p=spawnP();p.y=Math.random()*canvas.height;p.life=Math.random()*p.maxLife;particles.push(p);}
 
-  // ---- خطوط شبكة رقيقة ----
+  // ---- shatter shards ----
+  let shards = [];
+  function createShards(cx, cy, r) {
+    shards = [];
+    const count = 28;
+    for (let i=0;i<count;i++) {
+      const angle = (Math.PI*2/count)*i + Math.random()*.4;
+      const dist = r*(0.3+Math.random()*0.8);
+      const size = 4+Math.random()*14;
+      shards.push({
+        x: cx + Math.cos(angle)*dist*0.2, y: cy + Math.sin(angle)*dist*0.2,
+        tx: cx + Math.cos(angle)*dist*2.5, ty: cy + Math.sin(angle)*dist*2.5,
+        size, angle, rot: Math.random()*Math.PI*2,
+        rotV: (Math.random()-.5)*0.18,
+        alpha: 0.85+Math.random()*0.15,
+        color: Math.random()<0.5 ? `rgba(220,228,240,` : `rgba(255,255,255,`
+      });
+    }
+  }
+  let shardsCreated = false;
+
+  // ---- fine grid ----
   function drawGrid() {
-    const spacing = 55;
-    ctx.strokeStyle = 'rgba(201,160,48,0.04)';
+    const sp = 48;
+    ctx.strokeStyle = 'rgba(180,200,220,0.03)';
     ctx.lineWidth = 0.5;
-    for (let x = 0; x < canvas.width; x += spacing) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-    }
-    for (let y = 0; y < canvas.height; y += spacing) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-    }
+    for (let x=0;x<canvas.width;x+=sp){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,canvas.height);ctx.stroke();}
+    for (let y=0;y<canvas.height;y+=sp){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();}
   }
 
-  // ---- عدسة مكبرة متحركة ----
+  // ---- the silver lens ----
   function drawLens() {
-    const cx = canvas.width / 2;
-    const cy = canvas.height / 2 - 55;
+    const cx = canvas.width/2;
+    const cy = canvas.height/2 - 65;
 
-    let lensX, lensY, lensR, handleLen, alpha;
+    if (t >= SHATTER_END) return; // after shatter, no more lens
 
-    if (t < TRAVEL_FRAMES) {
-      // تتحرك من خارج الشاشة (يمين) نحو المركز
-      const progress = t / TRAVEL_FRAMES;
-      const ease = 1 - Math.pow(1 - progress, 3); // cubic ease out
-      lensX = canvas.width * 1.3 - (canvas.width * 1.3 - cx) * ease;
-      lensY = canvas.height * -0.2 + (cy - canvas.height * -0.2) * ease;
-      lensR = 55 + 20 * ease;
-      handleLen = 38 + 10 * ease;
-      alpha = 0.3 + 0.7 * ease;
-    } else {
-      // وصلت — بتنبض وتلمع
+    let lensX, lensY, lensR, handleLen, alpha, rotation=0;
+
+    if (t < ARRIVE) {
+      // entry: swoops in from top-right with overshoot
+      const prog = t/ARRIVE;
+      const ease = prog < 0.8
+        ? 1 - Math.pow(1-prog/0.8, 4)
+        : 1 + Math.sin((prog-0.8)/0.2*Math.PI)*0.06; // tiny overshoot
+      lensX = canvas.width*1.4 - (canvas.width*1.4 - cx)*ease;
+      lensY = -canvas.height*.15 + (cy+canvas.height*.15)*ease;
+      lensR = 50 + 52*ease;
+      handleLen = 30 + 48*ease;
+      alpha = 0.2 + 0.8*ease;
+      rotation = (1-ease)*Math.PI*0.4; // spins as arrives
+
+    } else if (t < SCAN_END) {
+      // scanning: rotates slowly, zooms slightly
+      const sc = (t-ARRIVE)/(SCAN_END-ARRIVE);
       lensX = cx;
       lensY = cy;
-      const pulse = Math.sin((t - TRAVEL_FRAMES) * 0.04) * 3;
-      lensR = 75 + pulse;
-      handleLen = 48;
+      lensR = 102 + Math.sin(sc*Math.PI*2)*4;
+      handleLen = 78 + Math.sin(sc*Math.PI*3)*4;
       alpha = 1;
+      rotation = sc*Math.PI*0.35; // rotates 35°
+
+    } else {
+      // shatter onset: lens freezes then pieces fly
+      if (!shardsCreated) { createShards(cx,cy,102); shardsCreated=true; }
+      lensX=cx; lensY=cy; lensR=102; handleLen=78;
+      const shatterProg = (t-SCAN_END)/(SHATTER_END-SCAN_END);
+      alpha = 1 - shatterProg*1.2;
+      rotation = 0.35;
     }
 
-    // ظل العدسة
-    const glowGrad = ctx.createRadialGradient(lensX, lensY, lensR * 0.3, lensX, lensY, lensR * 1.6);
-    glowGrad.addColorStop(0, `rgba(201,160,48,${0.14 * alpha})`);
-    glowGrad.addColorStop(1, 'rgba(201,160,48,0)');
-    ctx.beginPath();
-    ctx.arc(lensX, lensY, lensR * 1.6, 0, Math.PI * 2);
-    ctx.fillStyle = glowGrad;
-    ctx.fill();
+    // OUTER GLOW (silver-blue)
+    const glowR = lensR*1.8;
+    const glow = ctx.createRadialGradient(lensX,lensY,lensR*.4,lensX,lensY,glowR);
+    glow.addColorStop(0,`rgba(180,210,255,${0.22*alpha})`);
+    glow.addColorStop(0.5,`rgba(140,180,230,${0.1*alpha})`);
+    glow.addColorStop(1,'rgba(140,180,230,0)');
+    ctx.beginPath();ctx.arc(lensX,lensY,glowR,0,Math.PI*2);ctx.fillStyle=glow;ctx.fill();
 
-    // داخل العدسة — محتوى مكبّر (مربعات صغيرة)
     ctx.save();
-    ctx.beginPath();
-    ctx.arc(lensX, lensY, lensR - 4, 0, Math.PI * 2);
-    ctx.clip();
-    // خلفية داخل العدسة
-    const innerGrad = ctx.createRadialGradient(lensX - lensR*0.2, lensY - lensR*0.2, 0, lensX, lensY, lensR);
-    innerGrad.addColorStop(0, `rgba(30,20,5,${0.85*alpha})`);
-    innerGrad.addColorStop(1, `rgba(8,13,24,${0.95*alpha})`);
-    ctx.fillStyle = innerGrad;
-    ctx.fill();
-    // شبكة مكبرة داخل العدسة
-    ctx.strokeStyle = `rgba(201,160,48,${0.12*alpha})`;
-    ctx.lineWidth = 0.7;
-    const gs = 22;
-    for (let x = lensX - lensR; x < lensX + lensR; x += gs) {
-      ctx.beginPath(); ctx.moveTo(x, lensY - lensR); ctx.lineTo(x, lensY + lensR); ctx.stroke();
-    }
-    for (let y = lensY - lensR; y < lensY + lensR; y += gs) {
-      ctx.beginPath(); ctx.moveTo(lensX - lensR, y); ctx.lineTo(lensX + lensR, y); ctx.stroke();
-    }
-    // رسوم بيانية صغيرة داخل العدسة (بعد الوصول)
-    if (t >= TRAVEL_FRAMES) {
-      const barAlpha = Math.min(1, (t - TRAVEL_FRAMES) / 40);
-      const bars = [0.4, 0.65, 0.5, 0.8, 0.55, 0.9];
-      const bw = 7, gap = 5;
-      const totalW = bars.length * (bw + gap) - gap;
-      let bx = lensX - totalW / 2;
-      const baseY = lensY + lensR * 0.35;
-      bars.forEach((h, i) => {
-        const barH = lensR * 0.5 * h * barAlpha;
-        const g = ctx.createLinearGradient(bx, baseY - barH, bx, baseY);
-        g.addColorStop(0, `rgba(245,215,112,${barAlpha * 0.9})`);
-        g.addColorStop(1, `rgba(139,100,16,${barAlpha * 0.5})`);
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.roundRect(bx, baseY - barH, bw, barH, 2);
+    ctx.translate(lensX,lensY);
+    ctx.rotate(rotation);
+
+    // --- Inner glass fill ---
+    ctx.beginPath();ctx.arc(0,0,lensR-5,0,Math.PI*2);ctx.clip();
+    const inner = ctx.createRadialGradient(-lensR*.25,-lensR*.25,0,0,0,lensR);
+    inner.addColorStop(0,`rgba(210,225,245,${0.18*alpha})`);
+    inner.addColorStop(0.5,`rgba(140,165,200,${0.1*alpha})`);
+    inner.addColorStop(1,`rgba(60,80,110,${0.25*alpha})`);
+    ctx.fillStyle=inner;ctx.fillRect(-lensR,-lensR,lensR*2,lensR*2);
+
+    // Internal fine grid (magnified)
+    ctx.strokeStyle=`rgba(180,205,235,${0.18*alpha})`;ctx.lineWidth=0.6;
+    const gs=18;
+    for(let x=-lensR;x<lensR;x+=gs){ctx.beginPath();ctx.moveTo(x,-lensR);ctx.lineTo(x,lensR);ctx.stroke();}
+    for(let y=-lensR;y<lensR;y+=gs){ctx.beginPath();ctx.moveTo(-lensR,y);ctx.lineTo(lensR,y);ctx.stroke();}
+
+    // Crosshair
+    ctx.strokeStyle=`rgba(200,220,245,${0.22*alpha})`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(0,-lensR+8);ctx.lineTo(0,lensR-8);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-lensR+8,0);ctx.lineTo(lensR-8,0);ctx.stroke();
+
+    // Center dot + rings
+    const cdot = 0.4+0.6*Math.sin(t*0.12);
+    ctx.beginPath();ctx.arc(0,0,5,0,Math.PI*2);ctx.fillStyle=`rgba(230,240,255,${0.9*alpha*cdot})`;ctx.fill();
+    [22,42,64].forEach((r,i)=>{
+      ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(200,218,240,${(0.12-i*0.02)*alpha})`;ctx.lineWidth=0.8;ctx.stroke();
+    });
+
+    // Bar chart data inside lens (appears after arrival)
+    if (t > ARRIVE+20) {
+      const barIn = Math.min(1,(t-ARRIVE-20)/50);
+      const bars=[.38,.62,.48,.78,.55,.88,.44,.7];
+      const bw=6, gap=4, totalW=bars.length*(bw+gap)-gap;
+      let bx=-totalW/2;
+      const baseY=lensR*0.38;
+      bars.forEach((h,i)=>{
+        const bh=lensR*0.55*h*barIn;
+        const g=ctx.createLinearGradient(bx,baseY-bh,bx,baseY);
+        g.addColorStop(0,`rgba(220,235,255,${barIn*0.95})`);
+        g.addColorStop(1,`rgba(100,130,180,${barIn*0.4})`);
+        ctx.fillStyle=g;ctx.beginPath();
+        if(ctx.roundRect)ctx.roundRect(bx,baseY-bh,bw,bh,2);
+        else ctx.rect(bx,baseY-bh,bw,bh);
         ctx.fill();
-        bx += bw + gap;
+        bx+=bw+gap;
       });
-      // خط توجه صاعد
+      // trend line
       ctx.beginPath();
-      ctx.moveTo(lensX - totalW/2 - 5, baseY - lensR * 0.15);
-      ctx.lineTo(lensX, baseY - lensR * 0.38);
-      ctx.lineTo(lensX + totalW/2 + 5, baseY - lensR * 0.6);
-      ctx.strokeStyle = `rgba(245,215,112,${barAlpha * 0.8})`;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+      bars.forEach((h,i)=>{ const x=-totalW/2+(bw/2)+(bw+gap)*i; const y=baseY-lensR*0.55*h*barIn; i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+      ctx.strokeStyle=`rgba(180,220,255,${barIn*0.7})`;ctx.lineWidth=1.5;ctx.stroke();
+      // arrow tip
+      const lastX=-totalW/2+(bw/2)+(bw+gap)*7; const lastY=baseY-lensR*0.55*0.7*barIn;
+      ctx.beginPath();ctx.moveTo(lastX,lastY-8);ctx.lineTo(lastX+5,lastY);ctx.lineTo(lastX-5,lastY);
+      ctx.fillStyle=`rgba(180,220,255,${barIn*0.7})`;ctx.fill();
     }
-    ctx.restore();
 
-    // حافة العدسة الذهبية
-    const ringGrad = ctx.createLinearGradient(lensX - lensR, lensY - lensR, lensX + lensR, lensY + lensR);
-    ringGrad.addColorStop(0, `rgba(255,248,231,${alpha})`);
-    ringGrad.addColorStop(0.4, `rgba(201,160,48,${alpha})`);
-    ringGrad.addColorStop(1, `rgba(139,100,16,${alpha})`);
-    ctx.beginPath();
-    ctx.arc(lensX, lensY, lensR, 0, Math.PI * 2);
-    ctx.strokeStyle = ringGrad;
-    ctx.lineWidth = 5;
-    ctx.stroke();
+    ctx.restore(); // remove clip
 
-    // ذراع العدسة
-    const angle = Math.PI / 4;
-    const hx1 = lensX + lensR * Math.cos(angle);
-    const hy1 = lensY + lensR * Math.sin(angle);
-    const hx2 = hx1 + handleLen * Math.cos(angle);
-    const hy2 = hy1 + handleLen * Math.sin(angle);
-    const handleGrad = ctx.createLinearGradient(hx1, hy1, hx2, hy2);
-    handleGrad.addColorStop(0, `rgba(201,160,48,${alpha})`);
-    handleGrad.addColorStop(1, `rgba(100,70,10,${alpha * 0.8})`);
-    ctx.beginPath();
-    ctx.moveTo(hx1, hy1);
-    ctx.lineTo(hx2, hy2);
-    ctx.strokeStyle = handleGrad;
-    ctx.lineWidth = 9;
-    ctx.lineCap = 'round';
-    ctx.stroke();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = `rgba(245,215,112,${alpha * 0.4})`;
-    ctx.stroke();
+    // Outer ring (layered, silver gradient)
+    const ringAngle = rotation;
+    const ring1 = ctx.createLinearGradient(
+      lensX+Math.cos(ringAngle)*lensR, lensY+Math.sin(ringAngle)*lensR,
+      lensX-Math.cos(ringAngle)*lensR, lensY-Math.sin(ringAngle)*lensR
+    );
+    ring1.addColorStop(0,'rgba(255,255,255,1)');
+    ring1.addColorStop(0.25,'rgba(210,225,245,0.9)');
+    ring1.addColorStop(0.5,'rgba(150,170,200,0.7)');
+    ring1.addColorStop(0.75,'rgba(90,110,140,0.85)');
+    ring1.addColorStop(1,'rgba(180,200,225,0.95)');
+    ctx.beginPath();ctx.arc(lensX,lensY,lensR,0,Math.PI*2);
+    ctx.strokeStyle=ring1;ctx.lineWidth=7;ctx.stroke();
 
-    // بريق صغير
-    if (alpha > 0.5) {
-      const glint = 0.5 + 0.5 * Math.sin(t * 0.08);
+    // Inner thin ring highlight
+    ctx.beginPath();ctx.arc(lensX,lensY,lensR-8,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(255,255,255,${0.12*alpha})`;ctx.lineWidth=1.5;ctx.stroke();
+
+    // Handle
+    const hAngle = Math.PI/4 + rotation*0.5;
+    const hx1=lensX+lensR*Math.cos(hAngle), hy1=lensY+lensR*Math.sin(hAngle);
+    const hx2=hx1+handleLen*Math.cos(hAngle), hy2=hy1+handleLen*Math.sin(hAngle);
+    const hGrad=ctx.createLinearGradient(hx1,hy1,hx2,hy2);
+    hGrad.addColorStop(0,'rgba(200,218,238,1)');
+    hGrad.addColorStop(0.4,'rgba(140,165,195,0.9)');
+    hGrad.addColorStop(1,'rgba(70,90,115,0.8)');
+    ctx.beginPath();ctx.moveTo(hx1,hy1);ctx.lineTo(hx2,hy2);
+    ctx.strokeStyle=hGrad;ctx.lineWidth=11;ctx.lineCap='round';ctx.stroke();
+    // handle highlight
+    ctx.beginPath();ctx.moveTo(hx1,hy1);ctx.lineTo(hx2,hy2);
+    ctx.strokeStyle=`rgba(255,255,255,${0.25*alpha})`;ctx.lineWidth=3;ctx.stroke();
+
+    // Glint
+    const gl=0.5+0.5*Math.sin(t*0.11);
+    ctx.beginPath();ctx.arc(lensX-lensR*.3,lensY-lensR*.3,lensR*.07,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${gl*0.55*alpha})`;ctx.fill();
+    ctx.beginPath();ctx.arc(lensX-lensR*.15,lensY-lensR*.42,lensR*.03,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${gl*0.4*alpha})`;ctx.fill();
+  }
+
+  // ---- shards animation ----
+  function drawShards() {
+    if (!shardsCreated || t < SCAN_END) return;
+    const prog = Math.min(1,(t-SCAN_END)/(SHATTER_END+30-SCAN_END));
+    const ease = Math.pow(prog,0.55);
+    shards.forEach(s=>{
+      const cx=canvas.width/2, cy=canvas.height/2-65;
+      const sx = cx + (s.tx-cx)*ease;
+      const sy = cy + (s.ty-cy)*ease;
+      const a = s.alpha*(1-ease*0.95);
+      if(a<=0)return;
+      ctx.save();
+      ctx.translate(sx,sy);
+      ctx.rotate(s.rot+s.rotV*t);
       ctx.beginPath();
-      ctx.arc(lensX - lensR * 0.35, lensY - lensR * 0.35, lensR * 0.08, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${glint * 0.35 * alpha})`;
-      ctx.fill();
-    }
+      ctx.moveTo(0,-s.size);
+      ctx.lineTo(s.size*.6,s.size*.5);
+      ctx.lineTo(-s.size*.6,s.size*.5);
+      ctx.closePath();
+      ctx.fillStyle=s.color+(a*.7).toFixed(2)+')';ctx.fill();
+      ctx.strokeStyle=s.color+(a).toFixed(2)+')';ctx.lineWidth=0.5;ctx.stroke();
+      ctx.restore();
+    });
   }
 
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     drawGrid();
-
-    // رسم الجزيئات
-    particles.forEach(p => {
-      const progress = p.life / p.maxLife;
-      const fadeAlpha = progress < 0.15 ? progress / 0.15 : progress > 0.75 ? (1 - progress) / 0.25 : 1;
-      const twinkle = 0.7 + 0.3 * Math.sin(p.twinkle + p.life * 0.1);
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.color + (p.alpha * fadeAlpha * twinkle).toFixed(2) + ')';
-      ctx.fill();
-      p.x += p.vx; p.y += p.vy; p.life++;
-      if (p.life >= p.maxLife) { Object.assign(p, spawnParticle()); p.y = canvas.height + 10; p.life = 0; }
+    particles.forEach(p=>{
+      const progress=p.life/p.maxLife;
+      const fa=progress<.15?progress/.15:progress>.75?(1-progress)/.25:1;
+      const tw=0.7+0.3*Math.sin(p.twinkle+p.life*.1);
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.color+(p.alpha*fa*tw).toFixed(2)+')';ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;p.life++;
+      if(p.life>=p.maxLife){Object.assign(p,spawnP());p.y=canvas.height+10;p.life=0;}
     });
-
     drawLens();
+    drawShards();
     t++;
-    raf = requestAnimationFrame(draw);
+    raf=requestAnimationFrame(draw);
   }
   draw();
 
@@ -2128,6 +2286,7 @@ window.handleReceiptPhoto = handleReceiptPhoto;
 window.clearReceiptPhoto = clearReceiptPhoto;
 window.toggleCustodian = toggleCustodian;
 window.updateCustodianBalance = updateCustodianBalance;
+window.toggleTxActions = toggleTxActions;
 
 // دالة إرسال الإشعار البريدي للمدير
 async function sendAdminNotification(userName, userEmail, createdAt) {
